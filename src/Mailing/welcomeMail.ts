@@ -14,7 +14,7 @@
   <title>Welcome to Rankr</title>
   <style>
     a{
-            color: #fff;
+      color: #000;
     }
     body {
       margin: 0;

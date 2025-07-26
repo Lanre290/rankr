@@ -30,11 +30,11 @@ Rankr.init(
         },
         description: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         location: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
             defaultValue: '', 
         },
         is_public: {
