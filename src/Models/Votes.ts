@@ -4,7 +4,7 @@ import sequelize from "../Config/Sequelize";
 class Votes extends Model {
   public id!: number;
   public post_id!: string;
-  public vote!: string;
+  public vote!: number;
   public userIp!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
@@ -22,7 +22,7 @@ Votes.init(
       allowNull: false,
     },
     vote: {
-      type: DataTypes.STRING,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     userIp: {

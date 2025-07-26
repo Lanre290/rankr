@@ -13,20 +13,18 @@ export const selectRandomRankr = async (req: Request, res: Response) => {
 
         const rankr = rankrs.length > 0 ? rankrs[0] : null;
         const rankrId = rankr ? rankr.id : null;
-        const person1_name = rankr ? rankr.person_one_name || "Person One" : "Person One";
-        const person2_name = rankr ? rankr.person_two_name || "Person Two" : "Person Two";
 
         const person1Votecount = await Votes.count({
             where: {
                 post_id: rankrId,
-                vote: person1_name.toLowerCase(),
+                vote: 1,
             },
         });
 
         const person2Votecount = await Votes.count({
             where: {
                 post_id: rankrId,
-                vote: person2_name.toLowerCase(),
+                vote: 2,
             },
         });
 

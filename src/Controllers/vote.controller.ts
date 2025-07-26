@@ -35,7 +35,7 @@ export const voteController = async (req: Request, res: Response) => {
 
         await Votes.create({
             post_id: rankId,
-            vote: vote.toLowerCase(),
+            vote: vote,
             userIp: ip,
         });
 
