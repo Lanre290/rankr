@@ -1,3 +1,5 @@
+import { Request } from "express";
+
 export const processExpiryDate = (expiryDate: string): number => {
     const match = expiryDate.match(/^(\d+)([dh])$/);
     if (!match) throw new Error('Invalid expiry date format');
@@ -15,3 +17,10 @@ export const processExpiryDate = (expiryDate: string): number => {
     return now + seconds * 1000;
     // return new Date(now + seconds * 1000);
 }
+
+export const getUserIP = (req: Request) => {
+  const forwarded = req.headers['x-forwarded-for'];
+  return typeof forwarded === 'string'
+    ? forwarded.split(',')[0].trim()
+    : req.socket?.remoteAddress || null;
+};

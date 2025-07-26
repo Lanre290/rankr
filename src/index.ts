@@ -3,7 +3,6 @@ import sequelize from './Config/Sequelize';
 import { upload } from './Services/Multer.services';
 import SignupController from './Controllers/signup.controller';
 import { createRank } from './Controllers/createRank.controller';
-import AuthMiddleware from './Middlewares/Auth.middleware';
 import { loginController } from './Controllers/login.controller';
 import { voteController } from './Controllers/vote.controller';
 import { getRankr } from './Controllers/getRankr.controller';
@@ -14,7 +13,7 @@ var bodyParser = require("body-parser");
 
 const app = express();
 
-
+app.set('trust proxy', true);
 dotenv.config();
 
 const FRONTEND_URL: any = process.env.FRONTEND_URL;

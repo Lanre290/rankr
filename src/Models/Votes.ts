@@ -5,6 +5,7 @@ class Votes extends Model {
   public id!: number;
   public post_id!: string;
   public vote!: string;
+  public userIp!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
 }
@@ -23,6 +24,11 @@ Votes.init(
     vote: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    userIp: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: "<user_ip>"
     },
   },
   {

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import User from "../Models/users";
-import bcrypt from "bcrypt";
 import { loginSchema } from "../Services/zod.services";
 const jwt = require("jsonwebtoken");
 
@@ -21,7 +20,6 @@ export const loginController = async (req: Request, res: Response) => {
         return res.status(404).json({ error: "User not found" });
     }
     
-
     const token = jwt.sign({ id: user.id, username: user.username, email: user.email, image_url: user.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
 
     res.status(200).json({ message: "Login successful", user: user, token });

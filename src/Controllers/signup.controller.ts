@@ -18,9 +18,11 @@ const SignupController = async (req: any, res: any) => {
         return res.status(400).json({ errors: result.error.flatten().fieldErrors });
     }
 
-    const userExists = await User.findOne({ where: { email } });
+    const userExists = await User.findOne({ where: { email, username } });
     if (userExists) {
-        return res.status(400).json({ error: "Username already exists" });
+        const token = jwt.sign({ id: userExists.id, username: userExists.username, image_url: userExists.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
+
+        return res.status(201).json({ message: "User created successfully", user: userExists, token });
     }
 
     if (user_image && user_image.size > 5 * 1024 * 1024) {
@@ -43,10 +45,10 @@ const SignupController = async (req: any, res: any) => {
     }).then(async (user) => {
         const token = jwt.sign({ id: user.id, username: user.username, image_url: user.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
 
-        res.status(201).json({ message: "User created successfully", user, token });
+        return res.status(201).json({ message: "User created successfully", user, token });
     }).catch((error) => {
         console.error("Error creating user:", error);
-        res.status(500).json({ error: "Internal server error" });
+        return res.status(500).json({ error: "Internal server error" });
     });
 
 
