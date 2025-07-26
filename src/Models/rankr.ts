@@ -12,6 +12,7 @@ class Rankr extends Model{
     public person_one_name!: string;
     public person_two_name!: string;
     public expiresAt!: number;
+    public userId!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -61,7 +62,11 @@ Rankr.init(
             type: DataTypes.BIGINT,
             allowNull: false,
             defaultValue: Date.now() + 3 * 24 * 60 * 60, // Default to 3 days from now
-        }
+        },
+        userId: {
+            type: DataTypes.INTEGER.UNSIGNED,
+            allowNull: false,
+        },
     },
     {
         sequelize,

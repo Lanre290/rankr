@@ -8,6 +8,7 @@ import { voteController } from './Controllers/vote.controller';
 import { getRankr } from './Controllers/getRankr.controller';
 import { selectRandomRankr } from './Controllers/selectRandomRankr.controller';
 import { clearVotes } from './Controllers/clearVotes.controller';
+import AuthMiddleware from './Middlewares/Auth.middleware';
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
@@ -57,7 +58,7 @@ app.post("/api/v1/signup", upload.single('user_image'), SignupController);
 app.post("/api/v1/rankr", upload.fields([
     { name: "person1", maxCount: 1 },
     { name: "person2", maxCount: 1 },
-  ]), createRank);
+  ]), AuthMiddleware.verifyToken, createRank);
 app.post("/api/v1/login", loginController);
 app.post("/api/v1/vote", voteController);
 app.get("/api/v1/rankr/:id", getRankr);

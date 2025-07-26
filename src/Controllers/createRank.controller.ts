@@ -10,6 +10,11 @@ export const createRank = async (
     ) => {
         try {
             const { name_one, name_two, title, description, location, expiresAt, is_public } = req.body;
+            const userId = req.user?.id;
+
+            if(!userId) {
+                return res.status(401).json({ error: "Unauthorized. User ID is required."});
+            }
 
             if(!name_one || !name_two || !title || !is_public){
                 return res.status(400).json({error: 'Bad request.'});
@@ -61,6 +66,7 @@ export const createRank = async (
                 person_one_name: name_one,
                 person_two_name: name_two,
                 expiresAt: processedExpiryDate,
+                userId: userId,
             });
 
             return res.status(201).json({
