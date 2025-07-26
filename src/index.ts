@@ -9,6 +9,7 @@ import { getRankr } from './Controllers/getRankr.controller';
 import { selectRandomRankr } from './Controllers/selectRandomRankr.controller';
 import { clearVotes } from './Controllers/clearVotes.controller';
 import AuthMiddleware from './Middlewares/Auth.middleware';
+import { deleteRankrController } from './Controllers/deleteRankr.controller';
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
@@ -63,7 +64,8 @@ app.post("/api/v1/login", loginController);
 app.post("/api/v1/vote", voteController);
 app.get("/api/v1/rankr/:id", getRankr);
 app.get("/api/v1/randomRankr", selectRandomRankr);
-app.delete("/api/v1/rankr/:id", clearVotes);
+app.delete("/api/v1/votes/:rankr_id", clearVotes);
+app.delete("/api/v1/rankr/:rankrId", deleteRankrController);
 
 
 

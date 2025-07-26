@@ -1,3 +1,4 @@
+import { sendWelcomeEmail } from "../Mailing/welcomeMail";
 import User from "../Models/users";
 import { uploadUserPicture } from "../Services/cloudflare.services";
 import { userSchema } from "../Services/zod.services";
@@ -15,14 +16,23 @@ const SignupController = async (req: any, res: any) => {
     
     const result = userSchema.safeParse(req.body);
     if (!result.success) {
+
         return res.status(400).json({ errors: result.error.flatten().fieldErrors });
     }
 
-    const userExists = await User.findOne({ where: { email, username } });
-    if (userExists) {
-        const token = jwt.sign({ id: userExists.id, username: userExists.username, image_url: userExists.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
+    const checkEmail = await User.findOne({ where: { email } });
+    if (checkEmail) {
+        if (checkEmail.username != username) {
+            return res.status(400).json({ error: "Invalid username." });
+        }
+    }
 
-        return res.status(201).json({ message: "User created successfully", user: userExists, token });
+    const userExists = await User.findOne({ where: { email, username } });
+
+    if (userExists) {
+        const token = jwt.sign({ id: userExists.id, email: userExists.email, username: userExists.username, image_url: userExists.image_url }, process.env.JWT_SECRET);
+
+        return res.status(201).json({ message: "login successful", user: userExists, token });
     }
 
     if (user_image && user_image.size > 5 * 1024 * 1024) {
@@ -43,17 +53,14 @@ const SignupController = async (req: any, res: any) => {
         email,
         image_url: image_url || 'https://pub-da4dbd6273d846849afa17bbbe263db6.r2.dev/rankr_default_image.png',
     }).then(async (user) => {
-        const token = jwt.sign({ id: user.id, username: user.username, image_url: user.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
+        const token = jwt.sign({ id: user.id, email: user.email, username: user.username, image_url: user.image_url }, process.env.JWT_SECRET);
 
+        await sendWelcomeEmail(email);
         return res.status(201).json({ message: "User created successfully", user, token });
     }).catch((error) => {
         console.error("Error creating user:", error);
         return res.status(500).json({ error: "Internal server error" });
     });
-
-
-
-    res.status(200).json({ message: "Signup successful" });
 }
 
 export default SignupController;
