@@ -4,14 +4,14 @@ import sequelize from '../Config/Sequelize';
 class Rankr extends Model{
     public id!: string;
     public title!: string;
-    public decription?: string;
-    public location?: string;
-    public is_private?: boolean;
-    public person_one_image_url?: string;
-    public person_two_image_url?: string;
-    public person_one_name?: string;
-    public person_two_name?: string;
-    public expiresAt?: number;
+    public decription!: string;
+    public location!: string;
+    public is_private!: boolean;
+    public person_one_image_url!: string;
+    public person_two_image_url!: string;
+    public person_one_name!: string;
+    public person_two_name!: string;
+    public expiresAt!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }

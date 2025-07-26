@@ -4,14 +4,14 @@ import Votes from "../Models/Votes";
 
 export const getRankr = async (req: Request, res: Response) => {
     try {
-        const rankId = req.params.id;
+        const rankrId = req.params.id;
 
-        if (!rankId) {
+        if (!rankrId) {
             return res.status(400).json({ error: "Rank ID is required." });
         }
 
         const rank = await Rankr.findOne({
-            where: { id: rankId },
+            where: { id: rankrId },
             attributes: {
                 exclude: ["createdAt", "updatedAt", "userId"],
             },
@@ -26,21 +26,21 @@ export const getRankr = async (req: Request, res: Response) => {
 
         const person1Votecount = await Votes.count({
             where: {
-                post_id: rankId,
+                post_id: rankrId,
                 vote: person_one_name.toLowerCase(),
             },
         });
 
         const person2Votecount = await Votes.count({
             where: {
-                post_id: rankId,
+                post_id: rankrId,
                 vote: person_two_name.toLowerCase(),
             },
         });
 
         const totalVotes = await Votes.count({
             where: {
-                post_id: rankId,
+                post_id: rankrId,
             },
         });
 

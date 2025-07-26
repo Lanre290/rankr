@@ -6,6 +6,7 @@ import { createRank } from './Controllers/createRank.controller';
 import { loginController } from './Controllers/login.controller';
 import { voteController } from './Controllers/vote.controller';
 import { getRankr } from './Controllers/getRankr.controller';
+import { selectRandomRankr } from './Controllers/selectRandomRankr.controller';
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
@@ -59,6 +60,7 @@ app.post("/api/v1/rankr", upload.fields([
 app.post("/api/v1/login", loginController);
 app.post("/api/v1/vote", voteController);
 app.get("/api/v1/rankr/:id", getRankr);
+app.get("/api/v1/randomRankr", selectRandomRankr);
 
 
 

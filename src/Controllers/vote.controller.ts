@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Votes from "../Models/Votes";
 import { getUserIP } from "../Utils";
+import Rankr from "../Models/rankr";
 
 export const voteController = async (req: Request, res: Response) => {
     try {
@@ -8,6 +9,15 @@ export const voteController = async (req: Request, res: Response) => {
 
         if (!rankId) {
             return res.status(400).json({ error: "Invalid request data." });
+        }
+
+        const rankr = await Rankr.findOne({
+            where: { id: rankId },
+            attributes: ["id", "expiresAt"]
+        });
+
+        if(rankr?.expiresAt && Date.now() > rankr?.expiresAt) {
+            return res.status(404).json({ error: "Rankr has expired." });
         }
 
         const ip = getUserIP(req);
