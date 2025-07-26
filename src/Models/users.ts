@@ -4,7 +4,7 @@ import sequelize from '../Config/Sequelize';
 class User extends Model{
     public id!: number;
     public username!: string;
-    public password?: string;
+    public email!: string;
     public image_url?: string;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -20,11 +20,15 @@ User.init(
         username: {
             type: DataTypes.STRING(50),
             allowNull: false,
-            unique: true,
+            defaultValue: '',
         },
-        password: {
-            type: DataTypes.STRING,
+        email: {
+            type: DataTypes.STRING(100),
             allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true,
+            },
         },
         image_url: {
             type: DataTypes.STRING,

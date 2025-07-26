@@ -1,18 +1,16 @@
 import User from "../Models/users";
 import { uploadUserPicture } from "../Services/cloudflare.services";
 import { userSchema } from "../Services/zod.services";
-import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 
-const SALT_ROUNDS = process.env.SALT_ROUNDS ? parseInt(process.env.SALT_ROUNDS) : 10;
 
 const SignupController = async (req: any, res: any) => {
-    const { username, email, password } = req.body;
+    const { username, email } = req.body;
     const user_image = req.file;
     let image_url: string | undefined;
 
-    if(!username || !email || !password) {
-        return res.status(400).json({ error: "Username, email, and password are required" });
+    if(!username || !email) {
+        return res.status(400).json({ error: "Username and email are required" });
     }
     
     const result = userSchema.safeParse(req.body);
@@ -38,12 +36,9 @@ const SignupController = async (req: any, res: any) => {
         image_url = await uploadUserPicture(key, user_image.buffer, mimeType);
     }
 
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-
     await User.create({
         username,
         email,
-        password: hashedPassword,
         image_url: image_url || 'https://pub-da4dbd6273d846849afa17bbbe263db6.r2.dev/rankr_default_image.png',
     }).then(async (user) => {
         const token = jwt.sign({ id: user.id, username: user.username, image_url: user.image_url }, process.env.JWT_SECRET, { expiresIn: "20d" });
