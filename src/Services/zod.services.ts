@@ -4,7 +4,7 @@ export const userSchema = z.object({
   username: z
     .string()
     .min(1, "Username is required")
-    .regex(/^[A-Za-z\s'-]+$/, "Username must only contain letters and spaces"),
+    .regex(/^[A-Za-z0-9\s_]+$/, "Username must only contain letters, numbers, spaces, or underscores"),
   email: z
     .string()
     .email("Invalid email format"),
