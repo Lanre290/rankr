@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Comments from "../Models/Comments";
+import Rankr from "../Models/rankr";
 
 export const saveCommentController = async (req: Request, res: Response) => {
     try {
@@ -7,6 +8,12 @@ export const saveCommentController = async (req: Request, res: Response) => {
 
         if (!postId || !comment) {
             return res.status(400).json({ error: "Post ID and comment are required." });
+        }
+
+
+        const rankrExists = await Rankr.findOne({ where: { id: postId } });
+        if (!rankrExists) {
+            return res.status(404).json({ error: "Rankr not found." });
         }
 
         const newComment = await Comments.create({
