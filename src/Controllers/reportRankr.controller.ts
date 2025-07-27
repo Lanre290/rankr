@@ -3,13 +3,13 @@ import { notifyTeamOfReport } from "../Mailing/reportMail";
 
 const reportRankrController = async (req: Request, res: Response) => {
     try {
-        const { rankrUrl } = req.body;
+        const { rankrId } = req.body;
 
-        if (!rankrUrl) {
-            return res.status(400).json({ error: "Rankr URL is required." });
+        if (!rankrId) {
+            return res.status(400).json({ error: "Rankr ID is required." });
         }
 
-        notifyTeamOfReport(rankrUrl);
+        notifyTeamOfReport(rankrId);
 
         return res.status(200).json({ message: "Report submitted successfully. Our team will review it shortly." });
     } catch (error) {

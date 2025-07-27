@@ -61,9 +61,9 @@ export const notifyTeamOfReport = async (reportedRankrLink: string) => {
   <div class="container">
     <div class="header">🚩 A Rankr Has Been Reported</div>
     <div class="text">
-      <strong>Link:</strong> <a href="${reportedRankrLink}" target="_blank">${reportedRankrLink}</a>
+      <strong>Link:</strong> <a href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">https://userankr.vercel.app/rank/${reportedRankrLink}</a>
     </div>
-    <a class="link" href="${reportedRankrLink}" target="_blank">View Reported Rankr</a>
+    <a class="link" href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">View Reported Rankr</a>
     <div class="footer">
       Please review this Rankr as soon as possible. 🚨
     </div>
