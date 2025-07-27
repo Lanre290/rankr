@@ -18,7 +18,6 @@ export const notifyTeamOfReport = async (
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rankr Report</title>
   <style>
-    a { color: #fff; }
     body {
       font-family: 'Inter', sans-serif;
       background: #fdfdfd;
@@ -72,7 +71,7 @@ export const notifyTeamOfReport = async (
         https://userankr.vercel.app/rank/${reportedRankrLink}
       </a>
     </div>
-    <a class="link" href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">View Reported Rankr</a>
+    <a class="link" style="color: #fff;" href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">View Reported Rankr</a>
     <div class="footer">
       Please review this Rankr as soon as possible. 🚨
     </div>

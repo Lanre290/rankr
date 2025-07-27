@@ -13,6 +13,7 @@ import { deleteRankrController } from './Controllers/deleteRankr.controller';
 import reportRankrController from './Controllers/reportRankr.controller';
 import { saveCommentController } from './Controllers/SaveComment.controller';
 import { fetchCommentsController } from './Controllers/fetchComments.controller';
+import { unsubscribeController } from './Controllers/unsubscribe.controller';
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
@@ -72,6 +73,7 @@ app.delete("/api/v1/rankr/:rankrId", deleteRankrController);
 app.post("/api/v1/rankr/report", reportRankrController );
 app.post("/api/v1/comment", saveCommentController);
 app.get("/api/v1/comments/:rankrId", fetchCommentsController);
+app.get("/unsubscribe", unsubscribeController);
 
 
 

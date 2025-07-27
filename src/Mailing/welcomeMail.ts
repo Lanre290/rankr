@@ -1,6 +1,8 @@
  import { transporter } from "../Utils/mailing.utils";
 
-  export const sendWelcomeEmail = async (email: string) => {
+
+ const BASE_URL = process.env.BASE_URL || "http://localhost:4000";
+  export const sendWelcomeEmail = async (email: string, token:string) => {
     try {
       const mailOptions = {
         from: "Rankr <no-reply@rankr.me>",
@@ -73,7 +75,7 @@
     </div>
     <div class="cta" href="https://yourrankrapp.com">Start Ranking</div>
     <div class="footer">
-      Not feeling the heat? You can <a href="#">unsubscribe</a> anytime. But like… why would you?
+      Not feeling the heat? You can <a href="${BASE_URL}/unsubscribe?token=${token}">unsubscribe</a> anytime. But like… why would you?
     </div>
   </div>
 </body>

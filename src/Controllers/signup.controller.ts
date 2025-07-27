@@ -55,7 +55,7 @@ const SignupController = async (req: any, res: any) => {
     }).then(async (user) => {
         const token = jwt.sign({ id: user.id, email: user.email, username: user.username, image_url: user.image_url }, process.env.JWT_SECRET);
 
-        await sendWelcomeEmail(email);
+        await sendWelcomeEmail(email, token);
         return res.status(201).json({ message: "User created successfully", user, token });
     }).catch((error) => {
         console.error("Error creating user:", error);
