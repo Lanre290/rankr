@@ -20,14 +20,14 @@ const SignupController = async (req: any, res: any) => {
         return res.status(400).json({ errors: result.error.flatten().fieldErrors });
     }
 
-    const checkEmail = await User.findOne({ where: { email } });
-    if (checkEmail) {
-        if (checkEmail.username != username) {
-            return res.status(400).json({ error: "Invalid username." });
-        }
-    }
+    // const checkEmail = await User.findOne({ where: { email } });
+    // if (checkEmail) {
+    //     if (checkEmail.username != username) {
+    //         return res.status(400).json({ error: "Invalid username." });
+    //     }
+    // }
 
-    const userExists = await User.findOne({ where: { email, username } });
+    const userExists = await User.findOne({ where: { email } });
 
     if (userExists) {
         const token = jwt.sign({ id: userExists.id, email: userExists.email, username: userExists.username, image_url: userExists.image_url }, process.env.JWT_SECRET);
