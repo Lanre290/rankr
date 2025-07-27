@@ -1,6 +1,11 @@
 import { transporter } from "../Utils/mailing.utils";
 
-export const notifyTeamOfReport = async (reportedRankrLink: string) => {
+export const notifyTeamOfReport = async (
+  reportedRankrLink: string,
+  name: string,
+  email: string,
+  complaint: string
+) => {
   try {
     const mailOptions = {
       from: "Rankr <no-reply@rankr.me>",
@@ -13,9 +18,7 @@ export const notifyTeamOfReport = async (reportedRankrLink: string) => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rankr Report</title>
   <style>
-  a{
-    color: #fff;
-  }
+    a { color: #fff; }
     body {
       font-family: 'Inter', sans-serif;
       background: #fdfdfd;
@@ -60,8 +63,14 @@ export const notifyTeamOfReport = async (reportedRankrLink: string) => {
 <body>
   <div class="container">
     <div class="header">🚩 A Rankr Has Been Reported</div>
+    <div class="text"><strong>Reporter Name:</strong> ${name}</div>
+    <div class="text"><strong>Reporter Email:</strong> ${email}</div>
+    <div class="text"><strong>Complaint:</strong> ${complaint}</div>
     <div class="text">
-      <strong>Link:</strong> <a href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">https://userankr.vercel.app/rank/${reportedRankrLink}</a>
+      <strong>Link:</strong> 
+      <a href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">
+        https://userankr.vercel.app/rank/${reportedRankrLink}
+      </a>
     </div>
     <a class="link" href="https://userankr.vercel.app/rank/${reportedRankrLink}" target="_blank">View Reported Rankr</a>
     <div class="footer">
