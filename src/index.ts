@@ -11,6 +11,7 @@ import { clearVotes } from './Controllers/clearVotes.controller';
 import AuthMiddleware from './Middlewares/Auth.middleware';
 import { deleteRankrController } from './Controllers/deleteRankr.controller';
 import reportRankrController from './Controllers/reportRankr.controller';
+import { saveCommentController } from './Controllers/SaveComment.controller';
 const dotenv = require("dotenv");
 const session = require("express-session");
 const cors = require("cors");
@@ -68,6 +69,7 @@ app.get("/api/v1/randomRankr", selectRandomRankr);
 app.delete("/api/v1/votes/:rankr_id", clearVotes);
 app.delete("/api/v1/rankr/:rankrId", deleteRankrController);
 app.post("/api/v1/rankr/report", reportRankrController );
+app.post("/api/v1/comment", saveCommentController);
 
 
 
