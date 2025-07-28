@@ -73,7 +73,7 @@
       You just joined the most addictive popularity war on the internet.<br><br>
       People will vote. Your name will rise...  or fall. The only rule? You can't vote for yourself.
     </div>
-    <div class="cta" href="https://userankr.vercel.app">Start Ranking</div>
+    <a class="cta" href="https://userankr.vercel.app">Start Ranking</a>
     <div class="footer">
       Not feeling the heat? You can <a href="${BASE_URL}/unsubscribe?token=${token}">unsubscribe</a> anytime. But like… why would you?
     </div>
